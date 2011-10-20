@@ -22560,7 +22560,7 @@ function ReadCSS($html) {
 	}
 
 	// look for @import stylesheets
-	$regexp = '/@import url\([\'\"]{0,1}([^\)]*?\.css)[\'\"]{0,1}\)/si'; // EDIT mPDF 4.0
+	$regexp = '/@import url\([\'\"]{0,1}([^\)]*?\.css(\?\S+)?)[\'\"]{0,1}\)/si'; // EDIT mPDF 4.0
 	$x = preg_match_all($regexp,$html,$cxt);
 	if ($x) { 
 		$match += $x; 
@@ -22568,7 +22568,7 @@ function ReadCSS($html) {
 	}
 
 	// look for @import without the url()
-	$regexp = '/@import [\'\"]{0,1}([^;]*?\.css)[\'\"]{0,1}/si';
+	$regexp = '/@import [\'\"]{0,1}([^;]*?\.css(\?\S+)?))[\'\"]{0,1}/si';
 	$x = preg_match_all($regexp,$html,$cxt);
 	if ($x) { 
 		$match += $x; 
@@ -22587,7 +22587,7 @@ function ReadCSS($html) {
 		if ($CSSextblock) {
 			// look for embedded @import stylesheets in other stylesheets
 			// and fix url paths (including background-images) relative to stylesheet
-			$regexpem = '/@import url\([\'\"]{0,1}(.*?\.css)[\'\"]{0,1}\)/si';
+			$regexpem = '/@import url\([\'\"]{0,1}(.*?\.css(\?\S+)?))[\'\"]{0,1}\)/si';
 			$xem = preg_match_all($regexpem,$CSSextblock,$cxtem);
 			$cssBasePath = preg_replace('/\/[^\/]*$/','',$path) . '/';
 			if ($xem) { 
