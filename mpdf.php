@@ -4460,7 +4460,7 @@ function finishFlowingBlock($endofblock=false, $next='') {
 
 	// Always right trim!
 	// Right trim content and adjust width if need to justify (later)
-		if (preg_match('/[ ]+$/',$content[count($content)-1], $m)) {
+		if (count($content) && preg_match('/[ ]+$/',$content[count($content)-1], $m)) {
 			$strip = strlen($m[0]);
 			$content[count($content)-1] = substr($content[count($content)-1],0,(strlen($content[count($content)-1])-$strip));
 			$this->restoreFont( $font[ count($content)-1 ],false );
@@ -5269,6 +5269,7 @@ function printobjectbuffer($is_table=false, $blockdir=false) {
 				$this->SetTColor($objattr['color']);
 				$fieldalign = $rtlalign;
 				if ($objattr['text_align']) { $fieldalign = $objattr['text_align']; }
+
 				if ($objattr['subtype']=='PASSWORD') { $val = $objattr['value']; }
 				else { $val = $objattr['text']; }
 				if ($objattr['onChange']) { $js = $objattr['onChange']; }
@@ -6583,6 +6584,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 	if(!$info) return false;
 	//Automatic width and height calculation if needed
 	if($w==0 and $h==0) {
+
 /*-- IMAGES-WMF --*/
            if ($info['type']=='wmf') { 
 			// WMF units are twips (1/20pt)
@@ -20987,6 +20989,7 @@ arabic-indic | bengali | cambodian | devanagari | gujarati | gurmukhi | kannada 
 	}	// mPDF 5.1.018
 
 	if ($currIndentLvl < $lvl) {
+
 		if ($lvl > 1 || $this->list_indent_first_level) { 
 			$indent += $this->list_indent[$lvl][$occur]; 
 			$lastIndent[$lvl] = $this->list_indent[$lvl][$occur];
@@ -25395,6 +25398,7 @@ function _fixTableBorders(&$table){
 	if (!$table['borders_separate'] && $table['border_details']['B']['w']) {
 		$table['max_cell_border_width']['B'] = $table['border_details']['B']['w']; 
 	}
+
 	if ($this->simpleTables) { return; }
 	$cells = &$table['cells'];
 	$numcols = $table['nc'];
